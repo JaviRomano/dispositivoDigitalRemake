@@ -4,14 +4,14 @@ import dispositivoPadre.DispositivoDigital;
 
 public class Lavadora extends DispositivoDigital {
 
-	private long rpm;
+	private static long rpm;
 	private float capacidad;
 	private int nivelFuerza = (int) (rpm * capacidad);
 	private int numeroEficiencia = (int) (nivelFuerza / this.getConsumo());
 
 	public Lavadora(int peso, double precio, String marca, short consumo, long rpm, float capacidad) {
 		super(peso, precio, marca, consumo);
-		this.rpm = rpm;
+		Lavadora.rpm = rpm;
 		this.capacidad = capacidad;
 	}
 	
@@ -19,10 +19,9 @@ public class Lavadora extends DispositivoDigital {
 			long rpm, float capacidad) {
 		super(peso, precio, marca, consumo);
 		certificadoEficiencia = selloEficiencia();
-		this.rpm = rpm;
+		Lavadora.rpm = rpm;
 		this.capacidad = capacidad;
-	}
-	
+	}	
 	
 	@Override
 	public char selloEficiencia() {
@@ -40,21 +39,16 @@ public class Lavadora extends DispositivoDigital {
 		return 'E';
 	}
 
-	private String funcionSecado() {
-		if (rpm < 15000) {
-			return "solo lavadora.";
-		} else {
-			return "lavadora y secadora.";
-		}
+	private String funcionSecado(long rpm) {
+		return rpm < 15000 ? "solo lavadora." : "lavadora y secadora.";		
 	}
 
 	@Override
 	public String toString() {
-		return String.format("Dispositivo digital\n===================\n" + "Lavadora " + this.getMarca()
-				+ " || Consumo: [" + this.getConsumo() + "W] || Funcion " + this.funcionSecado()
+		return String.format("===================\n" + "Lavadora " + this.getMarca()
+				+ " || Consumo: [" + this.getConsumo() + "W] || Funcion " + this.funcionSecado(rpm)
 				+ " || Sello Eficiencia [" + this.selloEficiencia() + "] || Peso [" + this.getPeso()
-				+ "kg] ||  Precio: [" + this.getPrecio() + "€]");
+				+ "kg] ||  Precio: [" + this.getPrecio() + "€] - " + nivelFuerza);
 	}
-
 
 }

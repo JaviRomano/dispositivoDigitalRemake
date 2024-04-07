@@ -45,8 +45,6 @@ public abstract class DispositivoDigital {
 	/*
 	 * @Override public String toString() { return super.toString(); }
 	 */
-
-
 	public abstract char selloEficiencia();
 
 }
