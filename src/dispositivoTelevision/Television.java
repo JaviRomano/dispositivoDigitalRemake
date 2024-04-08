@@ -4,53 +4,80 @@ import dispositivoPadre.DispositivoDigital;
 
 public class Television extends DispositivoDigital {
 
-	private static byte pulgadas; // tamaño de la diagonal de la pantalla medido en pulgadas.
-	private static int altoPix;
-	private static int anchoPix;
-	private int consumoPantalla = (damePixelesTotales() * pulgadas);
-	private int numeroEficiencia = (consumoPantalla / getConsumo());
+	private byte pulgadas; // Tamaño de la diagonal de la pantalla medido en pulgadas.
+	private int altoPix; // Cantidad de pixeles de altura de la pantalla.
+	private int anchoPix; // Cantidad de pixeles de anchura de la pantalla.
 
 	public Television(int peso, double precio, String marca, short consumo, byte pulgadas, int altoPix, int anchoPix) {
 		super(peso, precio, marca, consumo);
-		Television.pulgadas = pulgadas;
-		Television.altoPix = altoPix;
-		Television.anchoPix = anchoPix;
+		this.pulgadas = pulgadas;
+		this.altoPix = altoPix;
+		this.anchoPix = anchoPix;
 	}
 	
-	public static int damePixelesTotales() {
+	/*
+	 * Calcula el total de píxeles del área de la pantalla.
+	 */
+	private int damePixelesTotales() { 
 		return altoPix * anchoPix;
 	}
 	
-	public static int dameConsumoPantalla() {
-		return (damePixelesTotales() * pulgadas);
+	/*
+	 * no necesita crear instancia
+	 */
+	public static void damePixelesTotalesEstaticos(int altoPix, int anchoPix) { 
+		System.out.printf("Los pixeles totales de este tamaño de pantalla son: %d", altoPix * anchoPix);
 	}
 
+	/*
+	 * en funcion al total de pixeles del area de pantalla, categorizamos según estándares de salida de video.
+	 */
 	public String dameResolucion() {
 		String tipoResolucion = "Este TV no soporta el formato de emisión actual.";
 		switch (damePixelesTotales()) {
-		case 8294400:
-			tipoResolucion = "4K";
-		case 3686400:
-			tipoResolucion = "Falso 2k - 1440p";
-		case 2073600:
-			tipoResolucion = "FullHD";
-		case 921600:
-			tipoResolucion = "HD";
-		}
-		return tipoResolucion;
+		case 8_294_400:
+			return tipoResolucion = "4K";
+		case 3_686_400:
+			return tipoResolucion = "Falso 2k (1440p)";
+		case 2_073_600:
+			return tipoResolucion = "FullHD";
+		case 921_600:
+			return tipoResolucion = "HD";
+		default:
+			return tipoResolucion;	
+		}		
+	}
+		
+	/*
+	 * Este método nos vale para indicar la energia optima para alimentar la pantalla,
+	 * en funcion de la cantidad de pixeles y el tamaño de la pantalla.
+	 */
+	private int dameConsumoPantalla() { 
+		return (damePixelesTotales() * pulgadas);		
+	}
+		
+	/*
+	 * En función del valor generado en el método dameConsumoPantalla() generamos
+	 *  un valor que podremos aplicar a cualquier instancia de Television y medir su eficiencia.
+	 */
+	private int dameNumeroEficiencia() { 
+		return (dameConsumoPantalla() / getConsumo());
 	}
 
+	/*
+	 *  a partir del método anterior, categorizamos en base a la eficiencia en el consumo del Televisor.
+	 */	
 	@Override
-	public char selloEficiencia() {
-		if (numeroEficiencia >= 1200000) {
+	public char selloEficiencia() { 
+		if (dameNumeroEficiencia() >= 1200000) {
 			return 'S';
-		} else if (numeroEficiencia >= 850000) {
+		} else if (dameNumeroEficiencia() >= 850000) {
 			return 'A';
-		} else if (numeroEficiencia >= 700000) {
+		} else if (dameNumeroEficiencia() >= 700000) {
 			return 'B';
-		} else if (numeroEficiencia >= 300000) {
+		} else if (dameNumeroEficiencia() >= 300000) {
 			return 'C';
-		} else if (numeroEficiencia >= 50000) {
+		} else if (dameNumeroEficiencia() >= 50000) {
 			return 'D';
 		}
 		return 'E';
@@ -58,11 +85,11 @@ public class Television extends DispositivoDigital {
 
 	@Override
 	public String toString() {
-		return String.format("===================\n" + "TV " + this.getMarca() + " || Tamaño: " + Television.pulgadas +
-				"pulgadas || Consumo: [" + this.getConsumo() + "W] || " + this.dameResolucion() + " || Sello Eficiencia [" +
-				this.selloEficiencia() + "] || Peso [" + this.getPeso() + "kg] ||  Precio: [" + this.getPrecio() +
-				"€] - Nº eficiencia: " + numeroEficiencia + " || PixTotales: " +  damePixelesTotales());
+		return String.format(super.toString() + this.getMarca() + " || Tamaño: " + this.pulgadas
+				+ " pulgadas || Consumo: [" + this.getConsumo() + "W] || " + this.dameResolucion()
+				+ " || Sello Eficiencia [" + this.selloEficiencia() + "] || Peso [" + this.getPeso()
+				+ "kg] ||  Precio: [" + this.getPrecio() + "€] || PixTotales: " + damePixelesTotales() + " || Nivel energia : " + dameConsumoPantalla()+ " || Nº eficiencia: " +  + dameNumeroEficiencia()
+				);
 	}
-
 
 }
