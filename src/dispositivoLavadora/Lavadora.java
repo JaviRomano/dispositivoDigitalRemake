@@ -18,28 +18,18 @@ public class Lavadora extends DispositivoDigital {
 		this.capacidad = (float) capacidad;
 	}
 
-	/*
-	 * Calcula la fuerza necesaria en funcion de la capacidad y revoluciones del tambor.
-	 */
-	private int dameNivelFuerza() {
-		return (int) (rpm * capacidad);
-	}
-	
-	private int dameNumeroEficiencia() {
-		return (dameNivelFuerza() / getConsumo());
-	}
-
 	@Override
 	public char selloEficiencia() {
-		if (dameNumeroEficiencia() > 500) {
+		int numeroEficiencia = (((int)(rpm * capacidad)) / getConsumo());
+		if (numeroEficiencia > 500) {
 			return 'S';
-		} else if (dameNumeroEficiencia() > 400) {
+		} else if (numeroEficiencia > 400) {
 			return 'A';
-		} else if (dameNumeroEficiencia() > 350) {
+		} else if (numeroEficiencia > 350) {
 			return 'B';
-		} else if (dameNumeroEficiencia() > 200) {
+		} else if (numeroEficiencia > 200) {
 			return 'C';
-		} else if (dameNumeroEficiencia() > 100) {
+		} else if (numeroEficiencia > 100) {
 			return 'D';
 		}
 		return 'E';
@@ -53,8 +43,7 @@ public class Lavadora extends DispositivoDigital {
 	public String toString() {
 		return String.format(super.toString() + this.getMarca() + " || Consumo: [" + getConsumo()
 				+ "W] || Funcion " + this.funcionSecado(rpm) + " || Sello Eficiencia [" + this.selloEficiencia()
-				+ "] || Peso [" + this.getPeso() + "kg] ||  Precio: [" + this.getPrecio() + "€] || Nº eficiencia: "
-				+ this.dameNivelFuerza() + " || NumEfic: " + this.dameNumeroEficiencia());
+				+ "] || Peso [" + this.getPeso() + "kg] ||  Precio: [" + this.getPrecio());
 	}
 
 }

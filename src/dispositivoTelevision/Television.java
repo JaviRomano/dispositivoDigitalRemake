@@ -14,6 +14,13 @@ public class Television extends DispositivoDigital {
 		this.altoPix = altoPix;
 		this.anchoPix = anchoPix;
 	}
+
+	/*
+	 * no necesita crear instancia
+	 */
+	public static void damePixelesTotalesEstaticos(int altoPix, int anchoPix) { 
+		System.out.printf("\nLos pixeles totales de este tamaño de pantalla son: %d\n", altoPix * anchoPix);
+	}
 	
 	/*
 	 * Calcula el total de píxeles del área de la pantalla.
@@ -23,18 +30,12 @@ public class Television extends DispositivoDigital {
 	}
 	
 	/*
-	 * no necesita crear instancia
-	 */
-	public static void damePixelesTotalesEstaticos(int altoPix, int anchoPix) { 
-		System.out.printf("Los pixeles totales de este tamaño de pantalla son: %d", altoPix * anchoPix);
-	}
-
-	/*
 	 * en funcion al total de pixeles del area de pantalla, categorizamos según estándares de salida de video.
 	 */
 	public String dameResolucion() {
+		int resolucion = damePixelesTotales();
 		String tipoResolucion = "Este TV no soporta el formato de emisión actual.";
-		switch (damePixelesTotales()) {
+		switch (resolucion) {
 		case 8_294_400:
 			return tipoResolucion = "4K";
 		case 3_686_400:
@@ -47,37 +48,22 @@ public class Television extends DispositivoDigital {
 			return tipoResolucion;	
 		}		
 	}
-		
-	/*
-	 * Este método nos vale para indicar la energia optima para alimentar la pantalla,
-	 * en funcion de la cantidad de pixeles y el tamaño de la pantalla.
-	 */
-	private int dameConsumoPantalla() { 
-		return (damePixelesTotales() * pulgadas);		
-	}
-		
-	/*
-	 * En función del valor generado en el método dameConsumoPantalla() generamos
-	 *  un valor que podremos aplicar a cualquier instancia de Television y medir su eficiencia.
-	 */
-	private int dameNumeroEficiencia() { 
-		return (dameConsumoPantalla() / getConsumo());
-	}
 
 	/*
 	 *  a partir del método anterior, categorizamos en base a la eficiencia en el consumo del Televisor.
 	 */	
 	@Override
 	public char selloEficiencia() { 
-		if (dameNumeroEficiencia() >= 1200000) {
+		int eficiencia = ((damePixelesTotales() * pulgadas)) / getConsumo();
+		if (eficiencia >= 1200000) {
 			return 'S';
-		} else if (dameNumeroEficiencia() >= 850000) {
+		} else if (eficiencia >= 850000) {
 			return 'A';
-		} else if (dameNumeroEficiencia() >= 700000) {
+		} else if (eficiencia >= 700000) {
 			return 'B';
-		} else if (dameNumeroEficiencia() >= 300000) {
+		} else if (eficiencia >= 300000) {
 			return 'C';
-		} else if (dameNumeroEficiencia() >= 50000) {
+		} else if (eficiencia >= 50000) {
 			return 'D';
 		}
 		return 'E';
@@ -88,8 +74,7 @@ public class Television extends DispositivoDigital {
 		return String.format(super.toString() + this.getMarca() + " || Tamaño: " + this.pulgadas
 				+ " pulgadas || Consumo: [" + this.getConsumo() + "W] || " + this.dameResolucion()
 				+ " || Sello Eficiencia [" + this.selloEficiencia() + "] || Peso [" + this.getPeso()
-				+ "kg] ||  Precio: [" + this.getPrecio() + "€] || PixTotales: " + damePixelesTotales() + " || Nivel energia : " + dameConsumoPantalla()+ " || Nº eficiencia: " +  + dameNumeroEficiencia()
-				);
+				+ "kg] ||  Precio: [" + this.getPrecio() + "€] || PixTotales: " + damePixelesTotales());
 	}
 
 }
