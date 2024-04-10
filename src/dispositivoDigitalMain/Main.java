@@ -35,9 +35,6 @@ public class Main {
 			
 		} while (condition);
 		
-		
-		
-		
 		for (DispositivoDigital dispositivoDigital : listaDispositivos) {
 			System.out.printf("Clase: %s || Precio: %.2f\n", dispositivoDigital.getClass().getSimpleName(),
 					dispositivoDigital.getPrecio());
@@ -46,9 +43,5 @@ public class Main {
 		for (int i = 0; i < listaDispositivos.length; i++) {
 			
 		}
-		
-		
-		
-
 	}
 }
