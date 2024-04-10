@@ -39,6 +39,7 @@ public class Main {
 		for (DispositivoDigital dispositivoDigital : listaDispositivos) 
 			arrayListDispositivos.add(dispositivoDigital);
 				
+		
 		while (arrayListDispositivos.size() < 4) {
 			System.out.println("dis");
 		}		
