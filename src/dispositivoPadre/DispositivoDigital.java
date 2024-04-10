@@ -1,16 +1,29 @@
 package dispositivoPadre;
 
 public abstract class DispositivoDigital {
+	
+	private int id;
 	private int peso;
 	private double precio;
-	private String Marca;
-	private short Consumo;
+	private String marca;
+	private short consumo;
+	private static int nextId = 1;
+	
 
-	public DispositivoDigital(int peso, double precio, String marca, short consumo) {
+	public DispositivoDigital(int peso, double precio, String marca, short consumo, int id) {
+		this.id = nextId++;
 		this.peso = peso;
 		this.precio = precio;
-		Marca = marca;
-		Consumo = consumo;
+		this.marca = marca;
+		this.consumo = consumo;
+	}	
+	
+	public int getId() {
+		return id;
+	}
+
+	public static int getNextId() {
+		return nextId;
 	}
 
 	public int getPeso() {
@@ -22,11 +35,11 @@ public abstract class DispositivoDigital {
 	}
 
 	public String getMarca() {
-		return Marca;
+		return marca;
 	}
 
 	public short getConsumo() {
-		return Consumo;
+		return consumo;
 	}
 
 	@Override

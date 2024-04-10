@@ -4,36 +4,23 @@ import dispositivoPadre.DispositivoDigital;
 
 public class Television extends DispositivoDigital {
 
-	private byte pulgadas; // Tamaño de la diagonal de la pantalla medido en pulgadas.
-	private int altoPix; // Cantidad de pixeles de altura de la pantalla.
-	private int anchoPix; // Cantidad de pixeles de anchura de la pantalla.
+	private byte pulgadas;
+	private int altoPix;
+	private int anchoPix;
 
-	public Television(int peso, double precio, String marca, short consumo, byte pulgadas, int altoPix, int anchoPix) {
-		super(peso, precio, marca, consumo);
+	public Television(int peso, double precio, String marca, short consumo, byte pulgadas, int altoPix, int anchoPix, int id) {
+		super(peso, precio, marca, consumo, id);
 		this.pulgadas = pulgadas;
 		this.altoPix = altoPix;
 		this.anchoPix = anchoPix;
 	}
 
-	/*
-	 * no necesita crear instancia
-	 */
 	public static void damePixelesTotalesEstaticos(int altoPix, int anchoPix) { 
 		System.out.printf("\nLos pixeles totales de este tamaño de pantalla son: %d\n", altoPix * anchoPix);
 	}
 	
-	/*
-	 * Calcula el total de píxeles del área de la pantalla.
-	 */
-	private int damePixelesTotales() { 
-		return altoPix * anchoPix;
-	}
-	
-	/*
-	 * en funcion al total de pixeles del area de pantalla, categorizamos según estándares de salida de video.
-	 */
 	public String dameResolucion() {
-		int resolucion = damePixelesTotales();
+		int resolucion = altoPix * anchoPix;
 		String tipoResolucion = "Este TV no soporta el formato de emisión actual.";
 		switch (resolucion) {
 		case 8_294_400:
@@ -49,12 +36,9 @@ public class Television extends DispositivoDigital {
 		}		
 	}
 
-	/*
-	 *  a partir del método anterior, categorizamos en base a la eficiencia en el consumo del Televisor.
-	 */	
 	@Override
 	public char selloEficiencia() { 
-		int eficiencia = ((damePixelesTotales() * pulgadas)) / getConsumo();
+		int eficiencia = ((altoPix * anchoPix * pulgadas)) / getConsumo();
 		if (eficiencia >= 1200000) {
 			return 'S';
 		} else if (eficiencia >= 850000) {
@@ -74,7 +58,7 @@ public class Television extends DispositivoDigital {
 		return String.format(super.toString() + this.getMarca() + " || Tamaño: " + this.pulgadas
 				+ " pulgadas || Consumo: [" + this.getConsumo() + "W] || " + this.dameResolucion()
 				+ " || Sello Eficiencia [" + this.selloEficiencia() + "] || Peso [" + this.getPeso()
-				+ "kg] ||  Precio: [" + this.getPrecio() + "€] || PixTotales: " + damePixelesTotales());
+				+ "kg] ||  Precio: [" + this.getPrecio() + "€] ||  id: ["+ getId() + "]");
 	}
 
 }

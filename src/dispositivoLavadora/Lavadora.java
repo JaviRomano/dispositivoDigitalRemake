@@ -3,17 +3,16 @@ package dispositivoLavadora;
 import dispositivoPadre.DispositivoDigital;
 
 public class Lavadora extends DispositivoDigital {
-
-	private long rpm; // revoluciones por minuto del tambor de lavadora.
-	private float capacidad; // capacidad en kg del interior del tambor.
-
 	
-	public Lavadora(double precio, String marca) {
-		this(45, precio, marca, (short) 350, 22000, 12.2);
+	private long rpm;
+	private float capacidad;
+	
+	public Lavadora(double precio, String marca, int id) {
+		this(45, precio, marca, (short) 350, 22000, 12.2, id);
 	}
 	
-	public Lavadora(int peso, double precio, String marca, short consumo, long rpm, double capacidad) {
-		super(peso, precio, marca, consumo);
+	public Lavadora(int peso, double precio, String marca, short consumo, long rpm, double capacidad, int id) {
+		super(peso, precio, marca, consumo, id);
 		this.rpm = rpm;
 		this.capacidad = (float) capacidad;
 	}
@@ -43,7 +42,8 @@ public class Lavadora extends DispositivoDigital {
 	public String toString() {
 		return String.format(super.toString() + this.getMarca() + " || Consumo: [" + getConsumo()
 				+ "W] || Funcion " + this.funcionSecado(rpm) + " || Sello Eficiencia [" + this.selloEficiencia()
-				+ "] || Peso [" + this.getPeso() + "kg] ||  Precio: [" + this.getPrecio());
+				+ "] || Peso [" + this.getPeso() + "kg] ||  Precio: [" + this.getPrecio()
+				+ "€] ||  id: ["+ this.getId() + "]");
 	}
 
 }
