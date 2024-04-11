@@ -44,7 +44,7 @@ public abstract class DispositivoDigital {
 
 	@Override
 	public String toString() {
-		return String.format("=================== \n%s ", getClass().getSimpleName());
+		return String.format("%s ", getClass().getSimpleName());
 	}
 
 	public abstract char selloEficiencia();

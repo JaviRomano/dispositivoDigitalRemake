@@ -16,7 +16,7 @@ public class Television extends DispositivoDigital {
 	}
 
 	public static void damePixelesTotalesEstaticos(int altoPix, int anchoPix) { 
-		System.out.printf("\nLos pixeles totales de este tamaño de pantalla son: %d\n", altoPix * anchoPix);
+		System.out.printf("Los pixeles totales de este tamaño de pantalla son: %d.\n", altoPix * anchoPix);
 	}
 	
 	public String dameResolucion() {
